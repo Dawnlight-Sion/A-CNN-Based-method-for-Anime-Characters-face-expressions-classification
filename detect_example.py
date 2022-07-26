@@ -6,6 +6,7 @@ import os
 import cv2
 import sys
 import os.path
+from torchvision import transforms
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -215,10 +216,26 @@ def detect(filename, output_name):
         # 转换图像大小，默认双线性插值
         image_face = cv2.resize(image_face, (128, 128))
         with torch.no_grad():
-            image_face = torch.Tensor(image_face)
             model.cpu()
-            #             image_face = image_face.to(device)
+            # 改为测试模式
+            model.eval()
+            # 图片输入预处理
+            # 应用了torchvision.transforms.ToTensor，其作用是将数据归一化到[0,1]（是将数据除以255）
+            # [0.485, 0.456, 0.406]这一组平均值是从imagenet训练集中抽样算出来的。
+            # 数据如果分布在(0,1)之间，可能实际的bias，就是神经网络的输入b会比较大，
+            # 而模型初始化时b=0的，这样会导致神经网络收敛比较慢，经过Normalize后，可以加快模型的收敛速度。
+            normalize = transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )
+            transform = transforms.Compose([
+                transforms.ToTensor(),
+                normalize
+            ])
+            image_face = transform(image_face)
             image_face = image_face.view(1, 3, 128, 128)
+            
+            #             image_face = image_face.to(device)
             # 调用模型
             predicts.append(F.softmax(model(image_face)).cpu().numpy().tolist())
 
