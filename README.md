@@ -6,3 +6,4 @@
 - detect_example.py is a pyqt5 interface for Anime Character Expression Recognization.
 - detect_faces is our dataset on Anime Character Expression Recognization with seven labels.
 - Our trained model parameters can be accessed at Releases.
+![image](https://user-images.githubusercontent.com/61106510/187221232-7a9d9851-6ee2-4f55-8914-1264efb64c9b.png)
