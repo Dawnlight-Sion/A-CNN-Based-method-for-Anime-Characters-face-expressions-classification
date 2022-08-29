@@ -7,4 +7,5 @@
 - detect_faces is our dataset on Anime Character Expression Recognization with seven labels.
 - Our trained model parameters can be accessed at Releases.
 - We made a simple image recognition interface using CNN Ensemble model at epoch50 through pyqt5:
-- ![image](https://user-images.githubusercontent.com/61106510/187221232-7a9d9851-6ee2-4f55-8914-1264efb64c9b.png)
+- ![image](https://user-images.githubusercontent.com/61106510/187221494-6b00393b-14a1-4dda-828e-bd27009d85c9.png)
+
